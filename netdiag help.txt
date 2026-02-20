@@ -1,0 +1,169 @@
+./netdiag_ --target 192.168.1.254/32 > report.txt
+
+./netdiag_ --target 192.168.1.0/24 > report.txt
+
+./netdiag_ --target 192.168.1.254/32 --start 1 --end 100
+255
+
+Perfetto 👌 adesso parliamo da tool serio.
+
+Il tuo eseguibile è:
+
+```
+netdiag_
+```
+
+Quello che puoi fare dipende da come hai scritto `main.go`.
+
+---
+
+# 🎯 1️⃣ Modalità interattiva (quella che stai usando)
+
+Se lo lanci così:
+
+```bash
+./netdiag_
+```
+
+Ti parte:
+
+```
+Modalità interattiva
+Target:
+Porta iniziale:
+Porta finale:
+Thread:
+Stealth:
+Export:
+```
+
+Questa è la modalità senza flag.
+
+---
+
+# 🎯 2️⃣ Modalità CLI professionale (se hai i flag)
+
+Se nel tuo `main.go` usi `flag.String`, `flag.Int`, ecc., puoi lanciare direttamente da riga di comando.
+
+Esempio completo:
+
+```bash
+./netdiag_ -target 192.168.1.0/24 -start 1 -end 1024 -threads 100 -stealth -export
+```
+
+Oppure per un host singolo:
+
+```bash
+./netdiag_ -target 192.168.1.254/32 -start 1 -end 255 -export
+```
+
+---
+
+# 🔎 3️⃣ Vedere i comandi disponibili
+
+Prova:
+
+```bash
+./netdiag_ -h
+```
+
+oppure
+
+```bash
+./netdiag_ --help
+```
+
+Se hai configurato `flag`, ti stampa qualcosa tipo:
+
+```
+-target string   Target CIDR (es 192.168.1.0/24)
+-start int       Porta iniziale
+-end int         Porta finale
+-threads int     Numero thread
+-stealth         Modalità stealth
+-export          Export CSV
+```
+
+---
+
+# ⚡ 4️⃣ Comandi pratici reali per te
+
+### 🔹 Scan veloce rete intera
+
+```bash
+./netdiag_ -target 192.168.1.0/24 -start 1 -end 200 -threads 200
+```
+
+### 🔹 Scan stealth limitato
+
+```bash
+./netdiag_ -target 192.168.1.254/32 -start 1 -end 100 -threads 50 -stealth
+```
+
+### 🔹 Scan + export
+
+```bash
+./netdiag_ -target 192.168.1.254/32 -start 1 -end 255 -export
+```
+
+---
+
+# 🧠 5️⃣ Se vuoi fare il salto vero
+
+Puoi aggiungere sub-comandi tipo:
+
+```
+netdiag_ scan
+netdiag_ audit
+netdiag_ report
+```
+
+Tipo:
+
+```bash
+./netdiag_ scan -target 192.168.1.0/24
+```
+
+Diventa tool professionale stile nmap.
+
+---
+
+# 🎯 Vuoi sapere esattamente cosa supporta il TUO binario?
+
+Mandami il contenuto di:
+
+👉 `main.go`
+
+Così ti dico esattamente:
+
+* quali flag accetta
+* quali modalità hai attive
+* cosa puoi fare oggi
+* cosa possiamo aggiungere domani
+
+Adesso il tuo netdiag_ è già sopra il 70% di uno scanner serio.
+Il prossimo step è dargli un'interfaccia CLI vera da tool professionale. 🔥
+./netdiag_ --help
+███╗   ██╗███████╗████████╗██████╗ ██╗ █████╗  ██████╗ 
+ ████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██║██╔══██╗██╔════╝ 
+ ██╔██╗ ██║█████╗     ██║   ██║  ██║██║███████║██║  ███╗
+ ██║╚██╗██║██╔══╝     ██║   ██║  ██║██║██╔══██║██║   ██║
+ ██║ ╚████║███████╗   ██║   ██████╔╝██║██║  ██║╚██████╔╝
+ ╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═════╝ ╚═╝╚═╝  ╚═╝ ╚═════╝ 
+
+        NetDiag - Network Diagnostic & Exposure Analyzer
+        Professional Edition
+
+Usage of ./netdiag_:
+  -end int
+    	Porta finale (default 1024)
+  -export
+    	Export CSV
+  -start int
+    	Porta iniziale (default 1)
+  -stealth
+    	Modalità stealth
+  -target string
+    	Target CIDR (es 192.168.1.0/24)
+  -threads int
+    	Numero worker (default 50)
